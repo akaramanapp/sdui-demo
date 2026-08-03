@@ -20,9 +20,10 @@ const sduiPage = {
           currency: "TRY",
           iban: "TR90 0020 3000 7896 5401 0000 01",
           actions: [
-            { label: "Para Transferi", action: "transfer",     icon: "send"       },
-            { label: "Son İşlemler",   action: "transactions", icon: "history"    },
-            { label: "Diğer",          action: "more",         icon: "more_horiz" }
+            { label: "Para Transferi", action: "transfer",        icon: "send"       },
+            { label: "Native",         action: "native_transfer", icon: "bolt"       },
+            { label: "Son İşlemler",   action: "transactions",    icon: "history"    },
+            { label: "Diğer",          action: "more",            icon: "more_horiz" }
           ]
         }
       ],

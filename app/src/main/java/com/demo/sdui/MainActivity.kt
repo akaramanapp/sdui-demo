@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.demo.sdui.ui.LocalActionHandler
+import com.demo.sdui.ui.NativeTransferScreen
 import com.demo.sdui.ui.SduiScreen
 import com.demo.sdui.ui.TransferScreen
 import com.demo.sdui.ui.theme.SduiDemoTheme
@@ -25,14 +26,15 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(
                     LocalActionHandler provides { action ->
                         when (action) {
-                            "quick_transfer" -> currentScreen = "transfer"
-                            // future screens can be added here
+                            "quick_transfer"  -> currentScreen = "transfer"
+                            "native_transfer" -> currentScreen = "native_transfer"
                         }
                     }
                 ) {
                     when (currentScreen) {
-                        "transfer" -> TransferScreen(onBack = { currentScreen = "dashboard" })
-                        else       -> SduiScreen()
+                        "transfer"        -> TransferScreen(onBack = { currentScreen = "dashboard" })
+                        "native_transfer" -> NativeTransferScreen(onBack = { currentScreen = "dashboard" })
+                        else              -> SduiScreen()
                     }
                 }
             }

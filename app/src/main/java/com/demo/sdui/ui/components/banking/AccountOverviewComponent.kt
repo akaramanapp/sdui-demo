@@ -52,6 +52,7 @@ import com.demo.sdui.data.model.BankAccount
 import com.demo.sdui.data.model.BankAction
 import com.demo.sdui.data.model.BankCard
 import com.demo.sdui.data.model.SduiComponent
+import com.demo.sdui.ui.LocalActionHandler
 
 @Composable
 fun AccountOverviewComponent(component: SduiComponent.AccountOverview) {
@@ -230,8 +231,9 @@ private fun AccountsTab(accounts: List<BankAccount>) {
 
 @Composable
 private fun AccountActionChip(bankAction: BankAction, modifier: Modifier = Modifier) {
+    val onAction = LocalActionHandler.current
     Surface(
-        modifier = modifier,
+        modifier = modifier.clickable { onAction(bankAction.action) },
         shape = RoundedCornerShape(20.dp),
         color = Color(0xFFF7F7F7),
         border = BorderStroke(0.8.dp, Color(0xFFE0E0E0))
