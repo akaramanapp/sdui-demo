@@ -30,7 +30,12 @@ data class SduiRawComponent(
     val tab_labels: List<String>? = null,
     val amount: String? = null,
     val action_label: String? = null,
-    val action: String? = null
+    val action: String? = null,
+    // transfer screen
+    val placeholder: String? = null,
+    val item_count: Int? = null,
+    val favorites: List<TransferFavorite>? = null,
+    val transfers: List<TransferHistoryItem>? = null
 )
 
 data class SduiCard(
@@ -74,6 +79,25 @@ data class BankCard(
     val color: String = "#1A73E8"
 )
 
+// ─── Transfer screen data classes ────────────────────────────────────────────
+
+data class TransferFavorite(
+    val id: String,
+    val label: String,
+    val name: String,
+    val initials: String? = null,
+    val color: String = "#E84118"
+)
+
+data class TransferHistoryItem(
+    val id: String,
+    val type: String,    // "Fast" | "EFT" | "Havale"
+    val date: String,
+    val name: String,
+    val masked_iban: String,
+    val amount: String
+)
+
 // ─── Typed component model (post-parsing) ─────────────────────────────────────
 
 sealed class SduiComponent {
@@ -103,6 +127,19 @@ sealed class SduiComponent {
     data class NetWealthAccordion(val title: String, val amount: String) : SduiComponent()
     data class QuickActionsSection(val tabLabels: List<String>, val bankActions: List<BankAction>) : SduiComponent()
     data class CampaignSectionHeader(val title: String, val actionLabel: String) : SduiComponent()
+
+    // ── Transfer screen components ─────────────────────────────────────────────
+    data class TransferSearch(val placeholder: String) : SduiComponent()
+    data class TransferFavorites(
+        val title: String,
+        val count: Int,
+        val favorites: List<TransferFavorite>
+    ) : SduiComponent()
+    data class TransferHistory(
+        val title: String,
+        val count: Int,
+        val transfers: List<TransferHistoryItem>
+    ) : SduiComponent()
 }
 
 fun SduiRawComponent.toSduiComponent(): SduiComponent = when (type) {
@@ -139,6 +176,19 @@ fun SduiRawComponent.toSduiComponent(): SduiComponent = when (type) {
     "campaign_section_header" -> SduiComponent.CampaignSectionHeader(
         title = title ?: "",
         actionLabel = action_label ?: "Tümü"
+    )
+    "transfer_search" -> SduiComponent.TransferSearch(
+        placeholder = placeholder ?: ""
+    )
+    "transfer_favorites" -> SduiComponent.TransferFavorites(
+        title = title ?: "Favoriler",
+        count = item_count ?: 0,
+        favorites = favorites ?: emptyList()
+    )
+    "transfer_history" -> SduiComponent.TransferHistory(
+        title = title ?: "Son Transferler",
+        count = item_count ?: 0,
+        transfers = transfers ?: emptyList()
     )
     else -> SduiComponent.Unknown(type = type)
 }

@@ -8,6 +8,9 @@ import com.demo.sdui.ui.components.banking.CampaignSectionComponent
 import com.demo.sdui.ui.components.banking.NetWealthAccordionComponent
 import com.demo.sdui.ui.components.banking.PromoBannerComponent
 import com.demo.sdui.ui.components.banking.QuickActionsSectionComponent
+import com.demo.sdui.ui.components.banking.TransferFavoritesComponent
+import com.demo.sdui.ui.components.banking.TransferHistoryComponent
+import com.demo.sdui.ui.components.banking.TransferSearchComponent
 
 @Composable
 fun SduiComponentRenderer(component: SduiComponent) {
@@ -23,8 +26,10 @@ fun SduiComponentRenderer(component: SduiComponent) {
         is SduiComponent.PromoBanner         -> PromoBannerComponent(component)
         is SduiComponent.NetWealthAccordion  -> NetWealthAccordionComponent(component)
         is SduiComponent.QuickActionsSection -> QuickActionsSectionComponent(component)
-        is SduiComponent.CampaignSectionHeader -> CampaignSectionComponent(component)
-        // ── Fallback ─────────────────────────────────────────────────────────
+        is SduiComponent.CampaignSectionHeader -> CampaignSectionComponent(component)        // ── Transfer screen components ─────────────────────────────────────────────
+        is SduiComponent.TransferSearch    -> TransferSearchComponent(component)
+        is SduiComponent.TransferFavorites -> TransferFavoritesComponent(component)
+        is SduiComponent.TransferHistory   -> TransferHistoryComponent(component)        // ── Fallback ─────────────────────────────────────────────────────────
         is SduiComponent.Unknown -> { /* silently skip unknown types */ }
     }
 }

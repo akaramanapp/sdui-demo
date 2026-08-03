@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.demo.sdui.data.model.BankAction
 import com.demo.sdui.data.model.SduiComponent
+import com.demo.sdui.ui.LocalActionHandler
 
 @Composable
 fun QuickActionsSectionComponent(component: SduiComponent.QuickActionsSection) {
@@ -88,11 +89,13 @@ fun QuickActionsSectionComponent(component: SduiComponent.QuickActionsSection) {
 
 @Composable
 private fun QuickActionItem(action: BankAction) {
+    val onAction = LocalActionHandler.current
     // Tall card: icon at top, label at bottom — matches reference design
     Surface(
         modifier = Modifier
             .width(110.dp)
-            .height(140.dp),
+            .height(140.dp)
+            .clickable { onAction(action.action) },
         shape = RoundedCornerShape(20.dp),
         color = Color.White,
         shadowElevation = 2.dp,
