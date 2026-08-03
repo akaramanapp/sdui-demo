@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Activity theme. The app uses a Compose MaterialTheme so this is kept
+        minimal — just removes the legacy ActionBar.
+    -->
+    <style name="Theme.SduiDemo" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
